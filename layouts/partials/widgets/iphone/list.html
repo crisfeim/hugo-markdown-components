@@ -1,9 +1,10 @@
+{{ $id := .id }}
 <div class="list">
     <p class="navigation-title">{{ .params.navigationTitle }}</p>
     {{ $items := split .params.items "|" }}
     <ul>
       {{ range $index, $item := $items }}
-        <label for="item-{{ add $index 1 }}"><li>{{ $item }}</li></label>
+        <label for="item-{{ add $index 1 }}-{{ $id }}"><li>{{ $item }}</li></label>
       {{ end }}
     </ul>
 </div>
