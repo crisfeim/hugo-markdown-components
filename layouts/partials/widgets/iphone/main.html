@@ -1,0 +1,37 @@
+{{ partial "widgets/iphone/state" }}
+
+<div class="typical-screen margin-x-auto default-margin-bottom">
+    {{ partial "widgets/iphone/list" }}
+    {{ partial "widgets/iphone/detail" }}
+</div>
+
+
+<style>
+.typical-screen {
+    position: relative;
+    width: 300px;
+    aspect-ratio: 1080 / 2340;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid lightgray;
+}
+
+.typical-screen * {
+    padding: 0;
+    margin: 0;
+}
+
+.typical-screen > * {
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    -webkit-touch-callout: none; /* iOS Safari */
+       -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+          -moz-user-select: none; /* Old versions of Firefox */
+           -ms-user-select: none; /* Internet Explorer/Edge */
+               user-select: none; /**/
+}
+
+{{ partial "widgets/iphone/utilities.css" | safeCSS }}
+</style>

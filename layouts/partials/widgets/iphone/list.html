@@ -1,0 +1,92 @@
+ <div class="list">
+   <p class="navigation-title">Screen</p>
+   <ul>
+     <label for="item-1"><li >Item 1</li></label>
+     <label for="item-2"><li>Item 2</li></label>
+     <label for="item-3"><li>Item 3</li></label>
+   </ul>
+ </div>
+
+<style>
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+.typical-screen ul {
+    list-style: none;
+}
+
+.typical-screen .list {
+    padding: 16px;
+    background: #efeef5;
+}
+
+.typical-screen .list ul {
+    background: white;
+    border-radius: 8px;
+}
+.typical-screen .list ul label {
+    position: relative;
+    display: block;
+}
+
+.typical-screen .list ul label li {
+    position: relative;
+    padding: 8px 16px;
+    transition: background 0.2s ease;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.typical-screen .list ul label:not(:first-child)::after {
+  content: '';
+  position: absolute;
+  left: 16px;
+  right: 0;
+  height: 0.5px;
+  top: 0;
+  background-color: #D2D1D7;
+}
+
+.typical-screen .list ul label li::before {
+  transition: background 0.2s ease;
+}
+
+
+.typical-screen .list ul label li:hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: -1px;
+  background: #D2D1D7;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.typical-screen .list ul label:first-child > li {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.typical-screen .list ul label:last-child > li {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.typical-screen .list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: left 0.5s ease;
+    color: black
+}
+
+.typical-screen .list.shown {
+    left: -25%;
+
+}
+</style>

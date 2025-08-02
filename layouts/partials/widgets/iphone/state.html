@@ -1,0 +1,40 @@
+<input class="radio" type="radio" name="detail" id="none" checked>
+<input class="radio" type="radio" name="detail" id="item-1">
+<input class="radio" type="radio" name="detail" id="item-2">
+<input class="radio" type="radio" name="detail" id="item-3">
+
+<style>
+input[type="radio"].radio {
+  display: none;
+}
+
+#item-1:checked ~ .typical-screen .navigation-detail,
+#item-2:checked ~ .typical-screen .navigation-detail,
+#item-3:checked ~ .typical-screen .navigation-detail {
+  left: 0;
+}
+
+#item-1:checked ~ .typical-screen .list,
+#item-2:checked ~ .typical-screen .list,
+#item-3:checked ~ .typical-screen .list {
+  left: -25%;
+}
+
+.title > div,
+.detail-content > div {
+  display: none;
+}
+
+#item-1:checked ~ .typical-screen .content-1,
+#item-2:checked ~ .typical-screen .content-2,
+#item-3:checked ~ .typical-screen .content-3 {
+  display: flex;
+}
+
+#toggle-detail:checked ~ .typical-screen .navigation-detail {
+  left: 0;
+}
+#toggle-detail:checked ~ .typical-screen .list {
+  left: -25%;
+}
+</style>

@@ -1,0 +1,82 @@
+<div class="navigation-detail">
+<div class="navigation-bar">
+    <label class="navigation-button" for="none">
+    <span class="chevron"></span>Back
+    </label>
+    <span class="title">
+        <div class="content-1">Item 1</div>
+        <div class="content-2">Item 2</div>
+        <div class="content-3">Item 3</div>
+    </span>
+</div>
+<div class="detail-content">
+    <div class="content-1">Item 1</div>
+    <div class="content-2">Item 2</div>
+    <div class="content-3">Item 3</div>
+</div>
+</div>
+
+<style>
+.typical-screen .list .navigation-title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 12px; /*@todo*/
+}
+
+.typical-screen .navigation-detail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 100%;
+    background: white;
+    transition: left 0.5s ease;
+    z-index: 2;
+}
+
+.typical-screen .navigation-detail.shown {
+    left: 0;
+}
+
+
+.navigation-bar .navigation-button .chevron:after {
+  content: ' ';
+  display: inline-block;
+  border-bottom: 2px solid #007AFF;
+  border-right: 2px solid #007AFF;
+  height: 10px;
+  width: 10px;
+  transform: rotate(-225deg);
+}
+
+.navigation-bar .navigation-button {
+    color: #007AFF;
+    cursor: pointer;
+}
+
+.navigation-bar {
+  position: relative;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+}
+
+.navigation-bar .title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+}
+
+.navigation-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation-detail .content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
