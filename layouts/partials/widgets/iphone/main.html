@@ -5,9 +5,8 @@
     "id" $id)
 }}
 
-{{ partial "widgets/iphone/state" $context }}
-
-<div id="iphone-{{ $id }}" class="typical-screen margin-x-auto default-margin-bottom">
+<div class="typical-screen margin-x-auto default-margin-bottom">
+  {{ partial "widgets/iphone/state" $context }}
   {{ partial "widgets/iphone/list" $context }}
   {{ partial "widgets/iphone/detail" $context }}
 </div>
