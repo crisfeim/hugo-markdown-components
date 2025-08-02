@@ -1,32 +1,31 @@
 {{ $id := .id }}
-<div class="navigation-detail">
-<div class="navigation-bar">
+<navigation-detail class="navigation-detail">
+<navigation-bar>
     <label class="navigation-button" for="none-{{ $id }}">
-    <span class="chevron"></span>Back
+    <chevron></chevron>Back
     </label>
-    <span class="title">
+    <heading>
         {{ $items := split .params.items "|" }}
 
           {{ range $index, $item := $items }}
             <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
           {{ end }}
-    </span>
-</div>
-<div class="detail-content">
+    </heading>
+</navigation-bar>
+<detail-content>
     {{ range $index, $item := $items }}
       <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
     {{ end }}
-</div>
-</div>
+</detail-content>
+</navigation-detail>
 
 <style>
-.typical-screen .list .navigation-title {
-    font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 12px; /*@todo*/
+detail-content,
+navigation-detail {
+    display: block;
 }
 
-.typical-screen .navigation-detail {
+iphone-screen navigation-detail {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -37,12 +36,12 @@
     z-index: 2;
 }
 
-.typical-screen .navigation-detail.shown {
+iphone-screen navigation-detail.shown {
     left: 0;
 }
 
 
-.navigation-bar .navigation-button .chevron:after {
+navigation-bar label.navigation-button chevron:after {
   content: ' ';
   display: inline-block;
   border-bottom: 2px solid #007AFF;
@@ -52,31 +51,32 @@
   transform: rotate(-225deg);
 }
 
-.navigation-bar .navigation-button {
+navigation-bar label.navigation-button {
     color: #007AFF;
     cursor: pointer;
 }
 
-.navigation-bar {
+navigation-bar {
   position: relative;
   padding: 8px 16px;
   display: flex;
   align-items: center;
 }
 
-.navigation-bar .title {
+navigation-bar heading {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   font-weight: 600;
+  display: block;
 }
 
-.navigation-detail {
+navigation-detail {
   display: flex;
   flex-direction: column;
 }
 
-.navigation-detail .content {
+navigation-detail .content {
   flex: 1;
   display: flex;
   justify-content: center;

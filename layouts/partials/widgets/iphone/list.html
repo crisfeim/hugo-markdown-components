@@ -1,38 +1,49 @@
 {{ $id := .id }}
-<div class="list">
-    <p class="navigation-title">{{ .params.navigationTitle }}</p>
+<list>
+    <navigation-title>{{ .params.navigationTitle }}</navigation-title>
     {{ $items := split .params.items "|" }}
     <ul>
       {{ range $index, $item := $items }}
         <label for="item-{{ add $index 1 }}-{{ $id }}"><li>{{ $item }}</li></label>
       {{ end }}
     </ul>
-</div>
+</list>
 
 <style>
 *, *::after, *::before {
     box-sizing: border-box;
 }
 
-.typical-screen ul {
+iphone-screen list {
+    display: block;
+}
+
+iphone-screen list navigation-title {
+    font-weight: bold;
+    font-size: 24px;
+    margin-bottom: 12px; /*@todo*/
+}
+
+
+iphone-screen ul {
     list-style: none;
 }
 
-.typical-screen .list {
+iphone-screen list {
     padding: 16px;
     background: #efeef5;
 }
 
-.typical-screen .list ul {
+iphone-screen list ul {
     background: white;
     border-radius: 8px;
 }
-.typical-screen .list ul label {
+iphone-screen list ul label {
     position: relative;
     display: block;
 }
 
-.typical-screen .list ul label li {
+iphone-screen list ul label li {
     position: relative;
     padding: 8px 16px;
     transition: background 0.2s ease;
@@ -40,7 +51,7 @@
     z-index: 1;
 }
 
-.typical-screen .list ul label:not(:first-child)::after {
+iphone-screen list ul label:not(:first-child)::after {
   content: '';
   position: absolute;
   left: 16px;
@@ -50,12 +61,12 @@
   background-color: #D2D1D7;
 }
 
-.typical-screen .list ul label li::before {
+iphone-screen list ul label li::before {
   transition: background 0.2s ease;
 }
 
 
-.typical-screen .list ul label li:hover::before {
+iphone-screen list ul label li:hover::before {
   content: '';
   position: absolute;
   left: 0;
@@ -67,17 +78,17 @@
   z-index: -1;
 }
 
-.typical-screen .list ul label:first-child > li {
+iphone-screen list ul label:first-child > li {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
 
-.typical-screen .list ul label:last-child > li {
+iphone-screen list ul label:last-child > li {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
-.typical-screen .list {
+iphone-screen list {
     position: absolute;
     top: 0;
     right: 0;
@@ -87,7 +98,7 @@
     color: black
 }
 
-.typical-screen .list.shown {
+iphone-screen list.shown {
     left: -25%;
 
 }

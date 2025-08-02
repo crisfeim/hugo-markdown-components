@@ -17,21 +17,21 @@
 {{ end }}
 
 <style>
-.title > div,
-.detail-content > div {
+heading > div,
+detail-content > div {
   display: none;
 }
 
 {{ range $index, $item := $items }}
-#item-{{ add $index 1 }}-{{ $id }}:checked ~ .navigation-detail {
+#item-{{ add $index 1 }}-{{ $id }}:checked ~ navigation-detail {
     left: 0;
 }
 
-#item-{{ add $index 1 }}-{{ $id }}:checked ~ .list {
+#item-{{ add $index 1 }}-{{ $id }}:checked ~ list {
   left: -25%;
 }
 
-#item-{{ add $index 1 }}-{{ $id }}:checked ~ .navigation-detail .content-{{ add $index 1 }}-{{ $id }} {
+#item-{{ add $index 1 }}-{{ $id }}:checked ~ navigation-detail .content-{{ add $index 1 }}-{{ $id }} {
     display: flex;
 }
 {{ end }}

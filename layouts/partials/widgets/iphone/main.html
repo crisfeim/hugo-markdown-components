@@ -5,14 +5,18 @@
     "id" $id)
 }}
 
-<div class="typical-screen margin-x-auto default-margin-bottom">
+<iphone-screen class="margin-x-auto default-margin-bottom">
   {{ partial "widgets/iphone/state" $context }}
   {{ partial "widgets/iphone/list" $context }}
   {{ partial "widgets/iphone/detail" $context }}
-</div>
+</iphone-screen>
 
 <style>
-.typical-screen {
+iphone-screen {
+    display: block;
+}
+
+iphone-screen {
     position: relative;
     width: 300px;
     aspect-ratio: 1080 / 2340;
@@ -21,12 +25,12 @@
     border: 1px solid lightgray;
 }
 
-.typical-screen * {
+iphone-screen * {
     padding: 0;
     margin: 0;
 }
 
-.typical-screen > * {
+iphone-screen > * {
     width: 100%;
     height: 100%;
     cursor: default;
