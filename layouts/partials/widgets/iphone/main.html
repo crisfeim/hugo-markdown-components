@@ -1,8 +1,8 @@
-{{ partial "widgets/iphone/state" }}
+{{ partial "widgets/iphone/state" .context }}
 
 <div class="typical-screen margin-x-auto default-margin-bottom">
-    {{ partial "widgets/iphone/list" }}
-    {{ partial "widgets/iphone/detail" }}
+    {{ partial "widgets/iphone/list" (dict "context" .context "params" .params) }}
+    {{ partial "widgets/iphone/detail" .context }}
 </div>
 
 

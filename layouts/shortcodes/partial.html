@@ -1,2 +1,2 @@
-{{ $partial := .Get 0 }}
-{{ partial $partial . }}
+{{ $partial := .Get "src" }}
+{{ partial $partial (dict "context" . "params" .Params) }}

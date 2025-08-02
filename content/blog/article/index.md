@@ -2,4 +2,6 @@
 title: iPhone
 ---
 
-{{< partial "widgets/iphone/main.html" >}}
+{{< partial
+    src="widgets/iphone/main.html" navigationTitle="My Custom Title"
+>}}
