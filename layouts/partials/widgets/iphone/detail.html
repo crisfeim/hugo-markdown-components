@@ -20,8 +20,8 @@
 </navigation-detail>
 
 <style>
-detail-content,
-navigation-detail {
+iphone-screen navigation-detail detail-content,
+iphone-screen navigation-detail {
     display: block;
 }
 
@@ -41,7 +41,7 @@ iphone-screen navigation-detail.shown {
 }
 
 
-navigation-bar label.navigation-button chevron:after {
+iphone-screen navigation-detail navigation-bar label.navigation-button chevron:after {
   content: ' ';
   display: inline-block;
   border-bottom: 2px solid #007AFF;
@@ -51,19 +51,19 @@ navigation-bar label.navigation-button chevron:after {
   transform: rotate(-225deg);
 }
 
-navigation-bar label.navigation-button {
+iphone-screen navigation-detail navigation-bar label.navigation-button {
     color: #007AFF;
     cursor: pointer;
 }
 
-navigation-bar {
+iphone-screen navigation-detail navigation-bar {
   position: relative;
   padding: 8px 16px;
   display: flex;
   align-items: center;
 }
 
-navigation-bar heading {
+iphone-screen navigation-detail navigation-bar heading {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -71,12 +71,12 @@ navigation-bar heading {
   display: block;
 }
 
-navigation-detail {
+iphone-screen navigation-detail navigation-detail {
   display: flex;
   flex-direction: column;
 }
 
-navigation-detail .content {
+iphone-screen navigation-detail navigation-detail .content {
   flex: 1;
   display: flex;
   justify-content: center;
