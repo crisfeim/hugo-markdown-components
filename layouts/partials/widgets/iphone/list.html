@@ -9,6 +9,7 @@
     </ul>
 </list>
 
+{{ if not (hugo.Store.Get "iphone-list-css-loaded") }}
 <style>
 *, *::after, *::before {
     box-sizing: border-box;
@@ -103,3 +104,6 @@ iphone-screen list.shown {
     left: -25%;
 }
 </style>
+
+{{ hugo.Store.Set "iphone-list-css-loaded" true }}
+{{ end }}

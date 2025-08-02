@@ -1,24 +1,27 @@
 {{ $id := .id }}
 <navigation-detail class="navigation-detail">
-<navigation-bar>
-    <label class="navigation-button" for="none-{{ $id }}">
-    <chevron></chevron>Back
-    </label>
-    <heading>
-        {{ $items := split .params.items "|" }}
+    <navigation-bar>
+        <label class="navigation-button" for="none-{{ $id }}">
+        <chevron></chevron>Back
+        </label>
+        <heading>
+            {{ $items := split .params.items "|" }}
 
-          {{ range $index, $item := $items }}
-            <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
-          {{ end }}
-    </heading>
-</navigation-bar>
-<detail-content>
-    {{ range $index, $item := $items }}
-      <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
-    {{ end }}
-</detail-content>
+            {{ range $index, $item := $items }}
+                <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
+            {{ end }}
+        </heading>
+    </navigation-bar>
+
+    <detail-content>
+        {{ range $index, $item := $items }}
+        <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
+        {{ end }}
+    </detail-content>
+
 </navigation-detail>
 
+{{ if not (hugo.Store.Get "iphone-detail-css-loaded") }}
 <style>
 iphone-screen navigation-detail detail-content,
 iphone-screen navigation-detail {
@@ -83,3 +86,5 @@ iphone-screen navigation-detail navigation-detail .content {
   align-items: center;
 }
 </style>
+{{ hugo.Store.Set "iphone-detail-css-loaded" true }}
+{{ end }}

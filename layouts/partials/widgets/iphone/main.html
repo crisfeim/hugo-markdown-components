@@ -11,6 +11,7 @@
   {{ partial "widgets/iphone/detail" $context }}
 </iphone-screen>
 
+{{ if not (hugo.Store.Get "iphone-main-css-loaded") }}
 <style>
 iphone-screen {
     display: block;
@@ -44,3 +45,5 @@ iphone-screen > * {
 
 {{ partial "widgets/iphone/utilities.css" | safeCSS }}
 </style>
+{{ hugo.Store.Set "iphone-main-css-loaded" true }}
+{{ end }}
