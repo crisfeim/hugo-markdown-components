@@ -1,9 +1,10 @@
 <div class="list">
-<p class="navigation-title">{{ .params.navigationTitle }}</p>
+    <p class="navigation-title">{{ .params.navigationTitle }}</p>
+    {{ $items := split .params.items "|" }}
     <ul>
-        <label for="item-1"><li>Item 1</li></label>
-        <label for="item-2"><li>Item 2</li></label>
-        <label for="item-3"><li>Item 3</li></label>
+      {{ range $index, $item := $items }}
+        <label for="item-{{ add $index 1 }}"><li>{{ $item }}</li></label>
+      {{ end }}
     </ul>
 </div>
 

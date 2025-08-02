@@ -4,15 +4,17 @@
     <span class="chevron"></span>Back
     </label>
     <span class="title">
-        <div class="content-1">Item 1</div>
-        <div class="content-2">Item 2</div>
-        <div class="content-3">Item 3</div>
+        {{ $items := split .params.items "|" }}
+
+          {{ range $index, $item := $items }}
+            <div class="content-{{ add $index 1 }}">{{ $item }}</div>
+          {{ end }}
     </span>
 </div>
 <div class="detail-content">
-    <div class="content-1">Item 1</div>
-    <div class="content-2">Item 2</div>
-    <div class="content-3">Item 3</div>
+    {{ range $index, $item := $items }}
+      <div class="content-{{ add $index 1 }}">{{ $item }}</div>
+    {{ end }}
 </div>
 </div>
 

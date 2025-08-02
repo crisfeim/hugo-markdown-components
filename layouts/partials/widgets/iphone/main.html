@@ -2,7 +2,7 @@
 
 <div class="typical-screen margin-x-auto default-margin-bottom">
     {{ partial "widgets/iphone/list" (dict "context" .context "params" .params) }}
-    {{ partial "widgets/iphone/detail" .context }}
+    {{ partial "widgets/iphone/detail" (dict "context" .context "params" .params) }}
 </div>
 
 
