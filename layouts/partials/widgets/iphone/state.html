@@ -17,11 +17,6 @@
 {{ end }}
 
 <style>
-heading > div,
-detail-content > div {
-  display: none;
-}
-
 {{ range $index, $item := $items }}
 #item-{{ add $index 1 }}-{{ $id }}:checked ~ navigation-detail {
     left: 0;

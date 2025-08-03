@@ -9,9 +9,11 @@
     </ul>
 </list>
 
-{{ if not (hugo.Store.Get "iphone-list-css-loaded") }}
-<style>
-    {{ partial "widgets/iphone/list.css" . | safeCSS }}
-</style>
-{{ hugo.Store.Set "iphone-list-css-loaded" true }}
+{{ if hugo.IsServer }}
+     <style>{{ partial "widgets/iphone/list.css" . | safeCSS }}</style>
+{{ else }}
+    {{ if not (hugo.Store.Get "iphone-list-css-loaded") }}
+        <style>{{ partial "widgets/iphone/list.css" . | safeCSS }}</style>
+        {{ hugo.Store.Set "iphone-list-css-loaded" true }}
+    {{ end }}
 {{ end }}

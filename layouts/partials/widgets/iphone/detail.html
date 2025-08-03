@@ -21,70 +21,11 @@
 
 </navigation-detail>
 
-{{ if not (hugo.Store.Get "iphone-detail-css-loaded") }}
-<style>
-iphone-screen navigation-detail detail-content,
-iphone-screen navigation-detail {
-    display: block;
-}
-
-iphone-screen navigation-detail {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 100%;
-    background: white;
-    transition: left 0.5s ease;
-    z-index: 2;
-}
-
-iphone-screen navigation-detail.shown {
-    left: 0;
-}
-
-
-iphone-screen navigation-detail navigation-bar label.navigation-button chevron:after {
-  content: ' ';
-  display: inline-block;
-  border-bottom: 2px solid #007AFF;
-  border-right: 2px solid #007AFF;
-  height: 10px;
-  width: 10px;
-  transform: rotate(-225deg);
-}
-
-iphone-screen navigation-detail navigation-bar label.navigation-button {
-    color: #007AFF;
-    cursor: pointer;
-}
-
-iphone-screen navigation-detail navigation-bar {
-  position: relative;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-}
-
-iphone-screen navigation-detail navigation-bar heading {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  font-weight: 600;
-  display: block;
-}
-
-iphone-screen navigation-detail navigation-detail {
-  display: flex;
-  flex-direction: column;
-}
-
-iphone-screen navigation-detail navigation-detail .content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
-{{ hugo.Store.Set "iphone-detail-css-loaded" true }}
+{{ if hugo.IsServer }}
+<style>{{ partial "widgets/iphone/detail.css" | safeCSS }}</style>
+{{ else }}
+    {{ if not (hugo.Store.Get "iphone-detail-css-loaded") }}
+        <style>{{ partial "widgets/iphone/detail.css" | safeCSS }}</style>
+        {{ hugo.Store.Set "iphone-detail-css-loaded" true }}
+    {{ end }}
 {{ end }}
