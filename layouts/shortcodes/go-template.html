@@ -1,0 +1,23 @@
+{{ $pg := .Page }}
+{{ $src := .Get "src" }}
+{{ with $pg.Resources.GetMatch $src }}
+  {{ $context := dict "Page" $pg }}
+  {{ range $key, $value := $.Params }}
+    {{ if ne $key "src" }}
+      {{ $context = merge $context (dict $key $value) }}
+    {{ end }}
+  {{ end }}
+
+  {{ $paramsHash := $.Params | jsonify | sha256 }}
+  {{ $timestamp := now.Unix }}
+  {{ $uniqueName := printf "%s-%s-%d" .Name $paramsHash $timestamp }}
+
+  {{ if not hugo.IsProduction }}
+    {{ $uniqueName = printf "%s-%s-%d" .Name $paramsHash $timestamp }}
+  {{ else }}
+    {{ $uniqueName = printf "%s-%s" .Name $paramsHash }}
+  {{ end }}
+
+  {{ $rendered := . | resources.ExecuteAsTemplate $uniqueName $context }}
+  {{ $rendered.Content | safeHTML }}
+{{ end }}

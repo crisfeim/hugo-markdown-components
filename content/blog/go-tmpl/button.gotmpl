@@ -1,0 +1,8 @@
+{{ $name := "world" }}
+<div>
+Hello, {{ .name }}!
+
+{{ $other := .Page.Resources.GetMatch "other.gotmpl" }}
+{{ $renderedOther := $other | resources.ExecuteAsTemplate $other.Name . }}
+{{ $renderedOther.Content }}
+<div>
