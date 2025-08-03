@@ -1,2 +1,5 @@
 [security]
   enableInlineShortcodes = true
+
+[markup.goldmark.renderer]
+  unsafe = true
