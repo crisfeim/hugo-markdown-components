@@ -1,0 +1,6 @@
+<div class="recipes">
+  <h2>{{ .recipes.title }}</h2>
+  {{ range .recipes.items }}
+    <div class="recipe">{{ .name }} - {{ .time }}</div>
+  {{ end }}
+</div>

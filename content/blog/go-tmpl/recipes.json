@@ -1,0 +1,7 @@
+{
+  "title": "Mis Recetas",
+  "items": [
+    {"name": "Pasta", "time": "30 min"},
+    {"name": "Pizza", "time": "45 min"}
+  ]
+}
