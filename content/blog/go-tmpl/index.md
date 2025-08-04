@@ -6,3 +6,5 @@ title: Shortcode
     src="button.gotmpl"
     name="world"
 >}}
+
+{{< go-template src="widget/iphone.gotmpl" >}}
