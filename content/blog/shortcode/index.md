@@ -1,5 +1,5 @@
 ---
-title: iPhone
+title: Partial shortcode
 ---
 
 ## Generic list
