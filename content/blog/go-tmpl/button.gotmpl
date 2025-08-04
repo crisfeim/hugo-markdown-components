@@ -2,13 +2,12 @@
 <div>
 Hello, {{ .name }}!
 
-{{ $other := .Page.Resources.GetMatch "other.gotmpl" }}
-{{ $renderedOther := $other | resources.ExecuteAsTemplate $other.Name . }}
-{{ $renderedOther.Content }}
+{{ partial "include" (dict "src" "other.gotmpl" "page" .Page "context" .) }}
+{{ partial "include" (dict "src" "other.gotmpl" "page" .Page "context" .) }}
+{{ partial "include" (dict "src" "other.gotmpl" "page" .Page "context" .) }}
 
-
-{{ partial "include.html" (dict
+{{ partial "include" (dict
     "src" "icon.gotmpl"
     "context" (dict "name" "arrow" "size" "small")
     "page" .Page) }}
-<div>
+</div>

@@ -1,11 +1,20 @@
 {{ $src := .src }}
-{{ $context := .context | default dict }}
-{{ $page := .page }}
+{{ $context := .context | default . }}
+{{ $page := .page | default .Page }}
+
+{{ if not $page }}
+  {{ $page = $context.Page }}
+{{ end }}
 
 {{ with $page.Resources.GetMatch $src }}
   {{ $contextHash := $context | jsonify | sha256 }}
-  {{ $uniqueName := printf "%s-nested-%s" .Name $contextHash }}
-  {{ $page.Store.Set "nested-template-deps" (slice .) }}
+  {{ $timestamp := now.UnixNano }}
+
+  {{ $uniqueName := printf "%s-nested-%s-%d" .Name $contextHash $timestamp }}
+  {{ if hugo.IsProduction }}
+    {{ $uniqueName = printf "%s-nested-%s" .Name $contextHash }}
+  {{ end }}
+
   {{ $rendered := . | resources.ExecuteAsTemplate $uniqueName $context }}
   {{ $rendered.Content | safeHTML }}
 {{ end }}
