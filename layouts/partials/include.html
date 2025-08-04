@@ -1,0 +1,11 @@
+{{ $src := .src }}
+{{ $context := .context | default dict }}
+{{ $page := .page }}
+
+{{ with $page.Resources.GetMatch $src }}
+  {{ $contextHash := $context | jsonify | sha256 }}
+  {{ $uniqueName := printf "%s-nested-%s" .Name $contextHash }}
+  {{ $page.Store.Set "nested-template-deps" (slice .) }}
+  {{ $rendered := . | resources.ExecuteAsTemplate $uniqueName $context }}
+  {{ $rendered.Content | safeHTML }}
+{{ end }}
