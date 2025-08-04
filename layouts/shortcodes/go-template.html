@@ -1,23 +1,60 @@
+{{/* layouts/shortcodes/component.html */}}
 {{ $pg := .Page }}
 {{ $src := .Get "src" }}
+
 {{ with $pg.Resources.GetMatch $src }}
   {{ $context := dict "Page" $pg }}
+
+  {{/* Procesar todos los parámetros */}}
   {{ range $key, $value := $.Params }}
     {{ if ne $key "src" }}
-      {{ $context = merge $context (dict $key $value) }}
+
+      {{/* Detectar si el valor termina en .json */}}
+      {{ $isJsonFile := strings.HasSuffix $value ".json" }}
+
+      {{ if $isJsonFile }}
+        {{/* Es un archivo JSON - cargarlo y parsearlo */}}
+        {{ $jsonResource := $pg.Resources.GetMatch $value }}
+        {{ if $jsonResource }}
+          {{ $jsonData := $jsonResource | transform.Unmarshal }}
+
+          {{/* Usar el nombre del parámetro (sin .json) como clave */}}
+          {{ $cleanKey := $key }}
+          {{ if strings.HasSuffix $key ".json" }}
+            {{ $cleanKey = strings.TrimSuffix $key ".json" }}
+          {{ end }}
+
+          {{ $context = merge $context (dict $cleanKey $jsonData) }}
+        {{ else }}
+          {{/* Archivo JSON no encontrado - pasar como string y mostrar warning */}}
+          {{ $context = merge $context (dict $key $value) }}
+          {{ warnf "JSON file not found: %s (referenced in %s)" $value $pg.File.Path }}
+        {{ end }}
+      {{ else }}
+        {{/* No es archivo JSON - pasar como string normal */}}
+        {{ $context = merge $context (dict $key $value) }}
+      {{ end }}
+
     {{ end }}
   {{ end }}
 
+  {{/* Generar nombre único para caché */}}
   {{ $paramsHash := $.Params | jsonify | sha256 }}
   {{ $timestamp := now.Unix }}
-  {{ $uniqueName := printf "%s-%s-%d" .Name $paramsHash $timestamp }}
+  {{ $uniqueName := "" }}
 
-  {{ if not hugo.IsProduction }}
-    {{ $uniqueName = printf "%s-%s-%d" .Name $paramsHash $timestamp }}
-  {{ else }}
+  {{ if hugo.IsProduction }}
+    {{/* En producción, solo usar hash para mejor caché */}}
     {{ $uniqueName = printf "%s-%s" .Name $paramsHash }}
+  {{ else }}
+    {{/* En desarrollo, incluir timestamp para invalidar caché */}}
+    {{ $uniqueName = printf "%s-%s-%d" .Name $paramsHash $timestamp }}
   {{ end }}
 
+  {{/* Renderizar template */}}
   {{ $rendered := . | resources.ExecuteAsTemplate $uniqueName $context }}
   {{ $rendered.Content | safeHTML }}
+
+{{ else }}
+  {{ errorf "Template file not found: %s (referenced in %s)" $src $pg.File.Path }}
 {{ end }}
