@@ -2,4 +2,4 @@
 title: Testing
 ---
 
-{{< gotmpl src="main.gotmpl" >}}
+{{< gotmpl src="main" >}}

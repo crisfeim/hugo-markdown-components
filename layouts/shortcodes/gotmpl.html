@@ -1,6 +1,10 @@
 {{ $pg := .Page }}
 {{ $src := .Get "src" }}
 
+{{ if not (strings.Contains $src ".") }}
+  {{ $src = printf "%s.gotmpl" $src }}
+{{ end }}
+
 {{ with $pg.Resources.GetMatch $src }}
   {{ $context := dict "Page" $pg }}
 
