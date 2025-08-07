@@ -1,16 +1,17 @@
 {{ $id := printf "%d" (now.UnixNano) }}
 {{ $items := split .items "|" }}
 
-{{ $context := (dict
+{{ $ctx := (dict
     "id" $id
     "navigationTitle" .navigationTitle
     "items" $items
+    "page" .Page
 )}}
 
 <iphone-screen class="margin-x-auto default-margin-bottom">
-{{ partial "include" (dict "src" "iphone/state.gotmpl" "context" $context "page" .Page) }}
-{{ partial "include" (dict "src" "iphone/list.gotmpl" "context" $context "page" .Page) }}
-{{ partial "include" (dict "src" "iphone/detail.gotmpl" "context" $context "page" .Page) }}
+{{ partial "+" (dict "src" "iphone/state" "ctx" $ctx) }}
+{{ partial "+" (dict "src" "iphone/list" "ctx" $ctx) }}
+{{ partial "+" (dict "src" "iphone/detail" "ctx" $ctx) }}
 </iphone-screen>
 
 {{ define "main-styles" }}
