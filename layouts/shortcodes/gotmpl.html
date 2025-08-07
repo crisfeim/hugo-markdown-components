@@ -6,7 +6,7 @@
 {{ end }}
 
 {{ with $pg.Resources.GetMatch $src }}
-  {{ $context := dict "Page" $pg }}
+  {{ $ctx := dict "Page" $pg }}
 
   {{ range $key, $value := $.Params }}
     {{ if ne $key "src" }}
@@ -14,41 +14,25 @@
       {{ $isJsonFile := strings.HasSuffix $value ".json" }}
 
       {{ if $isJsonFile }}
-        {{ $jsonResource := $pg.Resources.GetMatch $value }}
-        {{ if $jsonResource }}
-          {{ $jsonData := $jsonResource | transform.Unmarshal }}
-
+        {{ with $pg.Resources.GetMatch $value }}
+          {{ $json := . | transform.Unmarshal }}
           {{ $cleanKey := $key }}
-          {{ if strings.HasSuffix $key ".json" }}
-            {{ $cleanKey = strings.TrimSuffix $key ".json" }}
-          {{ end }}
-
-          {{ $context = merge $context (dict $cleanKey $jsonData) }}
+          {{ $ctx = merge $ctx (dict $cleanKey $json) }}
         {{ else }}
-          {{ $context = merge $context (dict $key $value) }}
+          {{ $ctx = merge $ctx (dict $key $value) }}
           {{ warnf "JSON file not found: %s (referenced in %s)" $value $pg.File.Path }}
+          <p style="color: red">⚠️ JSON not found {{ $value }}</p>
         {{ end }}
       {{ else }}
-        {{ $context = merge $context (dict $key $value) }}
+        {{ $ctx = merge $ctx (dict $key $value) }}
       {{ end }}
     {{ end }}
   {{ end }}
 
-  {{/* Generar nombre único para caché */}}
-  {{ $paramsHash := $.Params | jsonify | sha256 }}
+  {{ $hash := $.Params | jsonify | sha256 }}
   {{ $timestamp := now.Unix }}
-  {{ $uniqueName := "" }}
-
-  {{ if hugo.IsProduction }}
-    {{/* En producción, solo usar hash para mejor caché */}}
-    {{ $uniqueName = printf "%s-%s" .Name $paramsHash }}
-  {{ else }}
-    {{/* En desarrollo, incluir timestamp para invalidar caché */}}
-    {{ $uniqueName = printf "%s-%s-%d" .Name $paramsHash $timestamp }}
-  {{ end }}
-
-  {{/* Renderizar template */}}
-  {{ $rendered := . | resources.ExecuteAsTemplate $uniqueName $context }}
+  {{ $uniqueName := printf "%s-%s-%d" .Name $hash $timestamp }}
+  {{ $rendered := . | resources.ExecuteAsTemplate $uniqueName $ctx }}
   {{ $rendered.Content | safeHTML }}
 
 {{ else }}
