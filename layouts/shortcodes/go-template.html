@@ -5,20 +5,16 @@
 {{ with $pg.Resources.GetMatch $src }}
   {{ $context := dict "Page" $pg }}
 
-  {{/* Procesar todos los parámetros */}}
   {{ range $key, $value := $.Params }}
     {{ if ne $key "src" }}
 
-      {{/* Detectar si el valor termina en .json */}}
       {{ $isJsonFile := strings.HasSuffix $value ".json" }}
 
       {{ if $isJsonFile }}
-        {{/* Es un archivo JSON - cargarlo y parsearlo */}}
         {{ $jsonResource := $pg.Resources.GetMatch $value }}
         {{ if $jsonResource }}
           {{ $jsonData := $jsonResource | transform.Unmarshal }}
 
-          {{/* Usar el nombre del parámetro (sin .json) como clave */}}
           {{ $cleanKey := $key }}
           {{ if strings.HasSuffix $key ".json" }}
             {{ $cleanKey = strings.TrimSuffix $key ".json" }}
@@ -26,15 +22,12 @@
 
           {{ $context = merge $context (dict $cleanKey $jsonData) }}
         {{ else }}
-          {{/* Archivo JSON no encontrado - pasar como string y mostrar warning */}}
           {{ $context = merge $context (dict $key $value) }}
           {{ warnf "JSON file not found: %s (referenced in %s)" $value $pg.File.Path }}
         {{ end }}
       {{ else }}
-        {{/* No es archivo JSON - pasar como string normal */}}
         {{ $context = merge $context (dict $key $value) }}
       {{ end }}
-
     {{ end }}
   {{ end }}
 

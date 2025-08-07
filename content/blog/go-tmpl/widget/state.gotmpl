@@ -1,0 +1,33 @@
+{{ $id := .id }}
+{{ $items := .items }}
+
+<input
+    type="radio"
+    name="detail-{{ $id }}"
+    id="none-{{ $id }}"
+    checked
+    hidden>
+
+{{ range $index, $item := $items }}
+    <input
+        type="radio"
+        name="detail-{{ $id }}"
+        id="item-{{ add $index 1 }}-{{ $id }}"
+        hidden>
+{{ end }}
+
+<style>
+{{ range $index, $item := $items }}
+#item-{{ add $index 1 }}-{{ $id }}:checked ~ navigation-detail {
+    left: 0;
+}
+
+#item-{{ add $index 1 }}-{{ $id }}:checked ~ list {
+  left: -25%;
+}
+
+#item-{{ add $index 1 }}-{{ $id }}:checked ~ navigation-detail .content-{{ add $index 1 }}-{{ $id }} {
+    display: flex;
+}
+{{ end }}
+</style>
