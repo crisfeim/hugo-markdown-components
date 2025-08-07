@@ -1,0 +1,15 @@
+{{ $src := .src }}
+{{ $ctx := .ctx }}
+{{ $page := $ctx.Page }}
+
+{{ if not (strings.Contains $src ".") }}
+  {{ $src = printf "%s.gotmpl" $src }}
+{{ end }}
+
+{{ with $page.Resources.GetMatch $src }}
+  {{ $timestamp := now.UnixNano }}
+  {{ $rendered := . | resources.ExecuteAsTemplate $timestamp $ctx }}
+  {{ $rendered.Content | safeHTML }}
+{{ else }}
+    <p style="color: red">⚠ Template not found</p>
+{{ end }}
