@@ -20,6 +20,7 @@
     </detail-content>
 </navigation-detail>
 
+{{ define "detail-styles" }}
 <style>
 iphone-screen navigation-detail detail-content,
 iphone-screen navigation-detail {
@@ -86,3 +87,13 @@ iphone-screen navigation-detail.shown {
     left: 0;
 }
 </style>
+{{ end }}
+
+{{ if hugo.IsServer }}
+    {{ template "detail-styles" }}
+{{ else }}
+    {{ if not (hugo.Store.Get "detail-styles") }}
+    {{ template "detail-styles" }}
+    {{ hugo.Store.Set "detail-styles" true }}
+    {{ end }}
+{{ end }}

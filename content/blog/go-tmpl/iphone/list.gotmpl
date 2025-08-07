@@ -9,6 +9,7 @@
     </ul>
 </list>
 
+{{ define "list-styles" }}
 <style>
 *, *::after, *::before {
     box-sizing: border-box;
@@ -98,3 +99,13 @@ iphone-screen list.shown {
     left: -25%;
 }
 </style>
+{{ end }}
+
+{{ if hugo.IsServer }}
+    {{ template "list-styles" }}
+{{ else }}
+    {{ if not (hugo.Store.Get "list-styles") }}
+         {{ template "list-styles" }}
+        {{ hugo.Store.Set "list-styles" true }}
+    {{ end }}
+{{ end }}
