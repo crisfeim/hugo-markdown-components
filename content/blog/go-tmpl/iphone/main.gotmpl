@@ -8,11 +8,12 @@
 )}}
 
 <iphone-screen class="margin-x-auto default-margin-bottom">
-{{ partial "include" (dict "src" "widget/state.gotmpl" "context" $context "page" .Page) }}
-{{ partial "include" (dict "src" "widget/list.gotmpl" "context" $context "page" .Page) }}
-{{ partial "include" (dict "src" "widget/detail.gotmpl" "context" $context "page" .Page) }}
+{{ partial "include" (dict "src" "iphone/state.gotmpl" "context" $context "page" .Page) }}
+{{ partial "include" (dict "src" "iphone/list.gotmpl" "context" $context "page" .Page) }}
+{{ partial "include" (dict "src" "iphone/detail.gotmpl" "context" $context "page" .Page) }}
 </iphone-screen>
 
+{{ define "main-styles" }}
 <style>
 iphone-screen {
 display: block;
@@ -50,5 +51,14 @@ cursor: default;
     margin-left: auto;
     margin-right: auto;
 }
-
 </style>
+{{ end }}
+
+{{ if hugo.IsServer }}
+    {{ template "main-styles" }}
+{{ else }}
+    {{ if not (hugo.Store.Get "main-styles") }}
+         {{ template "main-styles" }}
+        {{ hugo.Store.Set "main-styles" true }}
+    {{ end }}
+{{ end }}
