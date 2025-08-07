@@ -6,6 +6,14 @@
   {{ $src = printf "%s.gotmpl" $src }}
 {{ end }}
 
+{{ if not $page }}
+  {{ $page = $ctx.page }}
+{{ end }}
+
+{{ if not $page }}
+  <p style="color: red">⚠ Page not found in the context</p>
+{{ end }}
+
 {{ with $page.Resources.GetMatch $src }}
   {{ $timestamp := now.UnixNano }}
   {{ $rendered := . | resources.ExecuteAsTemplate $timestamp $ctx }}
