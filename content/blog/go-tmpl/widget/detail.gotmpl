@@ -1,0 +1,88 @@
+{{ $id := .id }}
+<navigation-detail>
+    <navigation-bar>
+        <label class="navigation-button" for="none-{{ $id }}">
+        <chevron></chevron>Back
+        </label>
+        <heading>
+            {{ $items := .items }}
+
+            {{ range $index, $item := $items }}
+                <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
+            {{ end }}
+        </heading>
+    </navigation-bar>
+
+    <detail-content>
+        {{ range $index, $item := $items }}
+        <div class="content-{{ add $index 1 }}-{{ $id }}">{{ $item }}</div>
+        {{ end }}
+    </detail-content>
+</navigation-detail>
+
+<style>
+iphone-screen navigation-detail detail-content,
+iphone-screen navigation-detail {
+    display: block;
+}
+
+iphone-screen navigation-detail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 100%;
+    background: white;
+    transition: left 0.5s ease;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    heading > div,
+    detail-content > div {
+      display: none;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    navigation-bar label.navigation-button chevron:after {
+      content: ' ';
+      display: inline-block;
+      border-bottom: 2px solid #007AFF;
+      border-right: 2px solid #007AFF;
+      height: 10px;
+      width: 10px;
+      transform: rotate(-225deg);
+    }
+
+    navigation-bar label.navigation-button {
+        color: #007AFF;
+        cursor: pointer;
+    }
+
+    navigation-bar heading {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-weight: 600;
+      display: block;
+    }
+
+    navigation-bar {
+      position: relative;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+    }
+}
+
+iphone-screen navigation-detail.shown {
+    left: 0;
+}
+</style>
